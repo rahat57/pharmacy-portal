@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TPLMaps-Visualization</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://api.tplmaps.com/js-api-v2/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="heat-clustering.css">
+    <!-- <link rel="stylesheet" href="./assets/css/leaflet.css"> -->
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://api.tplmaps.com/js-api-v2/assets/js/bootstrap.min.js"></script>
+    <!-- <script src="./assets/library/leaflet.js"></script> -->
+    <script src="../assets/shared/read-api-key.js"></script>
+    <script src="heat-clustering.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/scroller/2.0.1/css/scroller.jqueryui.min.css">
+
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
+    <script src="https://cdn.datatables.net/scroller/2.0.1/js/dataTables.scroller.min.js"></script>
+    
+
+
+    
+
+</head>
+
+<body>
+   
+        <!-- The World of Christopher Barrett -->
+
+    <div id="legend-btn">
+            <img src="/heatmap-clustring-js-api/img/data-table.svg" width="25" alt="Data Spreadsheet" class="replaced-svg">
+            
+
+    </div>        
+
+    <div class="map-title" style="display: none;">
+
+        <figure class="card">
+
+          <div class="_content">
+            <div class="_title">
+              <h1 class="_heading">CoronaVirus Geo-fence</h1>
+              <div class="_tag _tag--1">low</div>
+              <div class="_tag _tag--2">medium</div>
+              <div class="_tag _tag--3">high</div>
+            </div>
+            <!-- <p class="_description">Any amount of description can go here, as long as there's a need to put a description.</p> -->
+            <div class="_details"><!-- 
+              <p class="_detail"><span class="emoji">⌚</span>2 days ago</p>
+              <p class="_detail"><span class="emoji">🔲</span>30 min</p>
+              <p class="_detail"><span class="emoji">📌</span>10 locations</p> -->
+              <!-- <table id="example" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr #</th>
+                        <th>Status</th>
+                        <th>Patient Name</th>
+                        <th>Report Number</th>
+                        <th>Treatment Place</th>
+                        <th>Contact</th>
+                        <th>CNIC</th>
+                        <th>Date Repoted</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table> -->
+            </div>
+          </div>
+
+        </figure>
+    </div>
+
+    <div id="cover" class="shadow-lg p-3 mb-5 bg-white rounded cover" style="display: none;">
+        <!-- <div id="show_hide_btn" onclick="showHideRightPanel()"> -->
+            <!-- <svg id="arrow-btn" class="bi bi-chevron-right shadow-sm " width="32" height="32" viewBox="0 0 20 20" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M6.646 3.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L12.293 10 6.646 4.354a.5.5 0 010-.708z" clip-rule="evenodd"/>
+            </svg> -->
+            <!-- <svg class="bi bi-plus" width="2.5em" height="2.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+              </svg> -->
+        <!-- </div> -->
+        <div id="header" class="text-center">
+            <b>Visualize Heat Map And Clustering</b>
+            <hr>
+        </div>
+
+       
+        <form class="form-horizontal" id="sidebar-form">
+            
+            <div class="row">
+                <div class="col sm-6">
+                    <div class="form-group">
+                        <label>Radius</label>
+                        <input type="text" class="form-control" id="radius"  placeholder="Radius" required="true">
+                        <small id="lngHelp" class="form-text text-muted">Example: 10 (meters)</small>
+                    </div>
+                </div>
+
+                <div class="col sm-6">
+                    <div class="form-group">
+                        <label>Blur</label>
+                        <input type="text" class="form-control" id="blur"  placeholder="Blur Value" required="true">
+                        <small id="lngHelp" class="form-text text-muted">Example: 10</small>
+                    </div>
+                </div>
+
+            </div>
+              
+
+            <div class="row">
+                <div class="col sm-12">
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="customFile" name="filename" accept=".xlsx, .xls, .csv">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="col sm-12">
+                    <div>
+                        <label class="switch">
+                            <input type="checkbox" id="btnLayerSwitcher">
+                            <span class="slider round"></span>
+                          </label><br>
+                          <small id="lblLayer"">switch to toggle layer</small>
+                        </div>
+                </div>
+            </div>  
+   
+            
+            <div class="row">
+                <div class="col sm-12">
+                    <div class="text-left" style="margin-top: 5%">
+                        <button type="button" id="csvFile" style="background-color: #146734;border: 2px solid #146734;" class="btn btn-primary">Add Layer</button>
+                        <button type="button" id="btnClear" style="color: #146734;background-color: #ffffff;border: 2px solid #146734;" class="btn btn-primary" onclick="map.clear()">Clear</button>
+                        <button type="button" id="btnClose" style="color: #146734;background-color: #ffffff;border: 2px solid #146734;" class="btn btn-primary">Close</button>
+            
+                    </div>
+                </div>
+            </div> 
+
+        </form>
+    
+
+        </div>
+            
+           
+        
+
+        </div>
+
+    <!-- </div> -->
+    <div id="map" style="height:100vh; width: 100%"></div>
+    <!-- <div class="modal" tabindex="-1" role="dialog" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm or Decline Case</h5>
+            <button type="button" class="close modal_close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Please mark this Covid-19 case confirm or decline</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary submit_case" value="approved">Confirm</button>
+            <button type="button" class="btn btn-secondary submit_case" data-dismiss="modal" value="denied">Decline</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+</body>
+
+</html>
