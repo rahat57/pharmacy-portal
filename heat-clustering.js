@@ -161,12 +161,14 @@ var map = {
             reqParam.severityLevel = e1.options[e1.selectedIndex].value;
             reqParam.polygon = createdPolygon;
             options.geomObject = polygonLayer;
-            // TPLMaps.overlays.addLabel(options);
-            // TPLMaps.overlays.addInfoPopUp(options);
-            var response = addpolygon(JSON.stringify(reqParam));
-            loadPolygons();
+
+            var response = addPolygonAjax(JSON.stringify(reqParam));
+            // var response = addpolygon(JSON.stringify(reqParam));
+            // loadPolygons();
+           
             userMap.removeLayer(polygonLayer);
             polygonLayer ='';
+            loadPolygonAjax();
             
         } else {
             alert('pease select all the necessary fields');
@@ -460,7 +462,8 @@ window.onload = function ()
     tool = TPLMaps.draw.getDrawTool(toolOptions);
     map.addprintWidget(userMap);
 
-      this.loadPolygons();
+    //   this.loadPolygons();
+      this.loadPolygonAjax();
 
     var polygons = [];
     var saveForm = '';
@@ -489,34 +492,11 @@ window.onload = function ()
     saveForm +='<button type="button" style="background-color: #146734;border: 2px solid #146734;" class="btn btn-primary" id="btnSave" onclick="map.savePolygon()">Save Polygon</button>';
     saveForm +='<button type="button" style="color: #146734;background-color: #ffffff;border: 2px solid #146734;margin-left:5px;height:38px" class="btn btn-primary" onclick="map.clearWidget()">Clear</button>';
     saveForm +='</div></div></div></div></form>';
-    // addWidget(saveForm);
-    var options ={
-        // icon:'<img src="https://api.tplmaps.com/js-api-v2/assets/images/marker-icon.png" style="width:16px">',
-        icon:'<svg id = "btnPanel" class="bi bi-plus leaflet-touch" background-color: "#484c27" width="40px!important" height="37px!important" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/></svg>',
-        // icon: '<strong>+</strong width=40px; height= 40px>',
-        userMap:userMap 
-    };
-
-     var findCoffee = TPLMaps.widget.addEasyButton(options);
-      findCoffee.addTo(userMap);
-      var optionsTable ={
-        icon:'<img src="https://api.tplmaps.com/js-api-v2/assets/images/marker-icon.png" style="width:16px">',
-        // icon:'<svg id = "btnTable" class="bi bi-plus leaflet-touch" width="40px!important" height="37px!important" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/></svg>',
-        // icon: '<strong>+</strong width=40px; height= 40px>',
-        userMap:userMap 
-    };
-
-    //   var findCoffee = TPLMaps.widget.addEasyButton(optionsTable);
-    //   findCoffee.addTo(userMap);
+    
+    addWidgetForChoseFielForm();
 
       $("#btnPanel").click(function () {
         $("#cover").show();
-        // var checkStyle= document.getElementById("cover").style.display
-        // if(checkStyle == "none"){
-        //     $("#cover").show();
-        // }else{
-        //     $("#cover").hide();
-        // }
        
       });
 
@@ -621,49 +601,48 @@ function returnLabel(value){
         return number;
     }  
 
-function addWidget(poppContent){
+function addWidgetForChoseFielForm(){
    
     var options ={
         // icon:'<img src="https://api.tplmaps.com/js-api-v2/assets/images/marker-icon.png" style="width:16px">',
-        icon:'<svg class="bi bi-plus leaflet-touch" background-color: "#484c27" width="2.5em" height="2.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/></svg>',
-        // icon: '<strong>+</strong width=40px; height= 40px>',
+        icon:'<svg id = "btnPanel" class="bi bi-plus leaflet-touch" background-color: "#484c27" width="40px!important" height="37px!important" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/></svg>',
         userMap:userMap 
     };
 
      var findCoffee = TPLMaps.widget.addEasyButton(options);
-      findCoffee.addTo(userMap);
-      findCoffee.onclick = function(){
-          console.log('its working');
-      };
-    //   findCoffee.bindPopup(poppContent);
+     findCoffee.addTo(userMap);
+
 }
 
+function addPolygonAjax(reqParam){
+    $.ajax({
+        
+        url: serviceUrl,
+        // url:'http://localhostpol:8182/hc/polygons',
+        type: 'POST',
+        data: reqParam,
+        contentType: 'application/json',
+        async: false,
+        success: function(data) {
+            if(data==1){
+                $("#name").val('');
+                $("#description").val('');
+                reqParam = '';
+                // polygonLayer ='';
+                createdPolygon ='';
+                alert('saved to datbase');
+            }
+        },
+        error: function(error) {
+            // console.log('status', error.status)
+            console.log('message', error.responseText)
+            alert("There is an error occured while Saving Data, please try again")
 
-function addpolygon(reqParam) {
-      
-    var xhttp = new XMLHttpRequest();
-     xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-         var responseData = JSON.parse(this.responseText);
-         if(responseData==1){
-            $("#name").val('');
-            $("#description").val('');
-            reqParam = '';
-            // polygonLayer ='';
-            createdPolygon ='';
-            alert('saved to datbase');
-        }else{
-            alert('not saved please try again later');
         }
-        //   alert(responseData);
-        return responseData;
-      }
-     };
-    //  xhttp.open("POST", serviceUrl, true);
-     xhttp.open("POST", 'http://localhost:8182/hc/polygons', true);
-     xhttp.setRequestHeader("Content-type", "application/json");
-     xhttp.send(reqParam);
+
+    });
 }
+
 
 function updatepolygon(reqParam) {
       
@@ -676,7 +655,7 @@ function updatepolygon(reqParam) {
             for(var i =0 ;i< featuresData.length;i++){
                 userMap.removeLayer(featuresData[i]);
             }
-            loadPolygons();
+            loadPolygonAjax();
             alert('updated!');
         }else{
             alert('not updated please try again later');
@@ -699,14 +678,10 @@ function deletePolygon(options) {
          var responseData = JSON.parse(this.responseText);
          if(responseData==1){
 
-            // for(var i =0 ;i< featuresData.length;i++){
-            //     userMap.removeLayer(featuresData[i]);
-            // }
             userMap.removeLayer(options.polygon);
 
             layerType ='';
 
-            // loadPolygon s();
             alert('Deleted from datbase');
         }else{
             alert('not deleted please try again later');
@@ -721,7 +696,8 @@ function deletePolygon(options) {
      xhttp.send(JSON.stringify(options.reqParam));
 }
 
-function loadPolygons() {
+function loadPolygonAjax(){
+
     var colors = ['dark green','#90ee90','Yellow','Red','Maroon'];
     var option = {
         style: {
@@ -731,108 +707,116 @@ function loadPolygons() {
           fillColor: 'red'
         }
       };
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-                var data = JSON.parse(this.responseText);
+    $.ajax({
+        
+        url: serviceUrl,
+        // url:'http://localhost:8182/hc/polygons',
+        type: 'GET',
+        contentType: 'application/json',
+        async: false,
+        success: function(data) {
+            
+            var data = JSON.parse(data);
                
-                var polygonLayers = [];
-               
+            var polygonLayers = [];
+           
+            
+            for(var i=0; i<data.features.length;i++){
                 
-                for(var i=0; i<data.features.length;i++){
-                    
-                    var colIndex = data.features[i].properties.severityLevel-1;
-                    option.style.fillColor = colors[colIndex];
-                    
-                    var layerInfo = {};
-                    layerInfo.id = data.features[i].properties.id;
-                   var polygon = TPLMaps.overlays.geojsonLayer(data.features[i], option);
-                   layerInfo.layer = polygon;
-                   featuresData.push(layerInfo);
-                //    var label = data.features[i], option;
-                   var str = "<table class='leaflet-popup-content' id ='tblData' style='line-height:2.4;table-layout: fixed;width:200px;'>";
-                   str += "<tr style='border-bottom:1pt solid LightGray;word-wrap: break-word;'><td><b>Name</b></td> <td id = 'tdName' style='padding-left:15px;word-wrap: break-word;'> "+data.features[i].properties.name+"</td> </tr>";
-                   str += "<tr style='border-bottom:1pt solid LightGray;word-wrap: break-word;'><td><b>Severity Level</b></td> <td id = 'tdSeverity' style='padding-left:15px;word-wrap: break-word;'>"+returnLabel(data.features[i].properties.severityLevel)+"</td> </tr>";
-                   str += "<tr style='border-bottom:1pt solid LightGray;word-wrap: break-word;'><td><b>Description</b></td> <td id = 'tdDesc' style='padding-left:15px;word-wrap: break-word;'> "+data.features[i].properties.description+"</td> </tr>";
-                   str += "<input type='hidden' id='id' value="+data.features[i].properties.id+" >";
-                //    str += "<input type='hidden' id='id' value="+data.features[i]+" >";
-                   str += "</table>";
-                   str += '<div class="row">';
-                   str += '<div class="col sm-12 text-center" style="line-height: 2.4;">';
-                //    str += '<div class="text-center" style="margin-top: 3%">';
-                   str += '<button type="button" style="background-color: #146734;border: 2px solid #146734; width:60px;height:38px;" class="btn btn-primary" id="btnEdit">Edit</button>';
-                   str += '<button type="button" style="background-color: #146734;border: 2px solid #146734; width:72px;height:38px; display:none;margin-left: 5px;" class="btn btn-primary" id="btnUpdate">Update</button>';
-                   str += '<button type="button" id="btnDelete" style="color: #146734;background-color: #ffffff;border: 2px solid #146734;width:68px;height:38px;margin-left: 5px;" class="btn btn-primary">Delete</button>';
-                //    str += '</div>';
-                   str += '</div>';
-                   str += '</div>';
-            polygon.bindPopup(str).on("popupopen", () => {
-                var updateReqParams = {};
-                var polyLayer;
+                var colIndex = data.features[i].properties.severityLevel-1;
+                option.style.fillColor = colors[colIndex];
                 
-                $("#btnDelete").on("click", e => {
+                var layerInfo = {};
+                layerInfo.id = data.features[i].properties.id;
+               var polygon = TPLMaps.overlays.geojsonLayer(data.features[i], option);
+               layerInfo.layer = polygon;
+               featuresData.push(layerInfo);
+            //    var label = data.features[i], option;
+               var str = "<table class='leaflet-popup-content' id ='tblData' style='line-height:2.4;table-layout: fixed;width:200px;'>";
+               str += "<tr style='border-bottom:1pt solid LightGray;word-wrap: break-word;'><td><b>Name</b></td> <td id = 'tdName' style='padding-left:15px;word-wrap: break-word;'> "+data.features[i].properties.name+"</td> </tr>";
+               str += "<tr style='border-bottom:1pt solid LightGray;word-wrap: break-word;'><td><b>Severity Level</b></td> <td id = 'tdSeverity' style='padding-left:15px;word-wrap: break-word;'>"+returnLabel(data.features[i].properties.severityLevel)+"</td> </tr>";
+               str += "<tr style='border-bottom:1pt solid LightGray;word-wrap: break-word;'><td><b>Description</b></td> <td id = 'tdDesc' style='padding-left:15px;word-wrap: break-word;'> "+data.features[i].properties.description+"</td> </tr>";
+               str += "<input type='hidden' id='id' value="+data.features[i].properties.id+" >";
+            //    str += "<input type='hidden' id='id' value="+data.features[i]+" >";
+               str += "</table>";
+               str += '<div class="row">';
+               str += '<div class="col sm-12 text-center" style="line-height: 2.4;">';
+            //    str += '<div class="text-center" style="margin-top: 3%">';
+               str += '<button type="button" style="background-color: #146734;border: 2px solid #146734; width:60px;height:38px;" class="btn btn-primary" id="btnEdit">Edit</button>';
+               str += '<button type="button" style="background-color: #146734;border: 2px solid #146734; width:72px;height:38px; display:none;margin-left: 5px;" class="btn btn-primary" id="btnUpdate">Update</button>';
+               str += '<button type="button" id="btnDelete" style="color: #146734;background-color: #ffffff;border: 2px solid #146734;width:68px;height:38px;margin-left: 5px;" class="btn btn-primary">Delete</button>';
+            //    str += '</div>';
+               str += '</div>';
+               str += '</div>';
+        polygon.bindPopup(str).on("popupopen", () => {
+            var updateReqParams = {};
+            var polyLayer;
+            
+            $("#btnDelete").on("click", e => {
+                e.preventDefault();
+                var optionDelete = {};
+            
+                var reqParam = {};
+                var pLayer = featuresData.filter(e => e.id === $("#id").val())[0];
+                reqParam.id =$("#id").val();
+                optionDelete.reqParam = reqParam;
+                optionDelete.polygon = pLayer.layer;
+                var response = deletePolygon(optionDelete);
+
+             });
+
+            $("#btnEdit").on("click", e => {
+                const instance = this;
                     e.preventDefault();
-                    var optionDelete = {};
-                
-                    var reqParam = {};
+                    $("#btnEdit").hide();
+                    $("#btnUpdate").show();
+                    updateReqParams.id = $("#id").val();
                     var pLayer = featuresData.filter(e => e.id === $("#id").val())[0];
-                    reqParam.id =$("#id").val();
-                    optionDelete.reqParam = reqParam;
-                    optionDelete.polygon = pLayer.layer;
-                    var response = deletePolygon(optionDelete);
+                    
+                    polyLayer = pLayer.layer; 
+                    // console.log(JSON.stringify(polyLayer.toGeoJSON().features[0].geometry));
+                    polyLayer.getLayers()[0].editing.enable();
+                 
+                     $("#tdName").attr("contenteditable",true);
+                     $("#tdSeverity").attr("contenteditable",true);
+                     $("#tdDesc").attr("contenteditable",true);
 
-                 });
-
-                $("#btnEdit").on("click", e => {
-                    const instance = this;
-                        e.preventDefault();
-                        $("#btnEdit").hide();
-                        $("#btnUpdate").show();
-                        updateReqParams.id = $("#id").val();
-                        var pLayer = featuresData.filter(e => e.id === $("#id").val())[0];
-                        
-                        polyLayer = pLayer.layer; 
-                        // console.log(JSON.stringify(polyLayer.toGeoJSON().features[0].geometry));
-                        polyLayer.getLayers()[0].editing.enable();
-                     
-                         $("#tdName").attr("contenteditable",true);
-                         $("#tdSeverity").attr("contenteditable",true);
-                         $("#tdDesc").attr("contenteditable",true);
-
-                       
-                });
-
-                $("#btnUpdate").on("click", e => {
-                    e.preventDefault();
-                    $("#btnEdit").show();
-                    $("#btnUpdate").hide();
-                     updateReqParams.severityLevel = returnLabelNumber($("#tdSeverity").text());
-                     updateReqParams.name = $("#tdName").text().trim();
-                     updateReqParams.description =  $("#tdDesc").text().trim();
-                     updateReqParams.polygon = JSON.stringify(polyLayer.toGeoJSON().features[0].geometry);
-                    updatepolygon(JSON.stringify(updateReqParams));
-                    polyLayer.getLayers()[0].editing.disable();
                    
-                });
             });
 
-                    polygonLayers.push(polygon);
-                    TPLMaps.overlays.addToMap({
-                        geomObject: polygon,
-                        map: userMap
-                    });
-                    
-
-                    
-                 }
+            $("#btnUpdate").on("click", e => {
+                e.preventDefault();
+                $("#btnEdit").show();
+                $("#btnUpdate").hide();
+                 updateReqParams.severityLevel = returnLabelNumber($("#tdSeverity").text());
+                 updateReqParams.name = $("#tdName").text().trim();
+                 updateReqParams.description =  $("#tdDesc").text().trim();
+                 updateReqParams.polygon = JSON.stringify(polyLayer.toGeoJSON().features[0].geometry);
+                updatepolygon(JSON.stringify(updateReqParams));
+                polyLayer.getLayers()[0].editing.disable();
                
-          }
-        };
-        // xhttp.open("GET",serviceUrl, true);
-         xhttp.open("GET", 'http://localhost:8182/hc/polygons', true);
-        xhttp.send();
-   
-  }
+            });
+        });
+
+                polygonLayers.push(polygon);
+                TPLMaps.overlays.addToMap({
+                    geomObject: polygon,
+                    map: userMap
+                });
+                
+
+                
+             }
+        },
+        error: function(error) {
+            // console.log('status', error.status)
+            console.log('message', error.responseText)
+            alert("There is an error occured while loading Data, please try again")
+
+        }
+
+    });
+}
 
 function showHideRightPanel() {
     var rightPanelRight = parseFloat($("#cover").css("right").replace("px", ""));
