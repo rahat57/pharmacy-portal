@@ -322,8 +322,8 @@ window.onload = function ()
             html+= '<p>Please mark this Covid-19 case confirm or decline</p>';
             html+= '</div>';
             html+= '<div class="modal-footer">';
-            html+= '<button id="modelbtn_'+id+'" type="button" class="btn btn-primary submit_case" value="approved">Confirm</button>';
-            html+= '<button id="modelbtn1_'+id+'" type="button" class="btn btn-secondary submit_case" data-dismiss="modal" value="denied">Decline</button>';
+            html+= '<button id="modelbtn_'+id+'" type="button" class="btn btn-primary submit_case" value="Approved">Confirm</button>';
+            html+= '<button id="modelbtn1_'+id+'" type="button" class="btn btn-secondary submit_case" data-dismiss="modal" value="Denied">Decline</button>';
              html+= '</div>';
             html+= '</div>';
             html+= '</div>';
