@@ -29,16 +29,18 @@ div#map {
 .modal-footer{
     background-color: #ffffff !important ;
 }
+
 #legend-btn{
-      z-index: 99999999999;
-      position: absolute;
-      bottom: 20%;
-      left: 1%;
-      padding: 4px;
-      background-color: #FFFF;
-      /* border-radius: 4px 0 0 4px; */
-      padding: 3px;
-      border-radius: 3px;
+  z-index: 99999999999;
+  position: absolute;
+  bottom: 20%;
+  left: 0.9%;
+  width: 51px;
+  padding: 4px;
+  background-color: #FFFF;
+  /* border-radius: 4px 0 0 4px; */
+  padding: 3px;
+  border-radius: 3px;
 }
 .map-title{
   position: absolute;

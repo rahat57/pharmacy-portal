@@ -187,9 +187,10 @@ function loadTabularData(){
         tableHtml+= '<th>Status</th>';
         tableHtml+= '<th>Patient Name</th>';
         tableHtml+= '<th>Report Number</th>';
-        tableHtml+= '<th>Treatment Place</th>';
+        tableHtml+= '<th>Hospital/Lab</th>';
         tableHtml+= '<th>Contact</th>';
         tableHtml+= '<th>CNIC</th>';
+        tableHtml+= '<th>Address</th>';
         tableHtml+= '<th>Date Repoted</th>';
         tableHtml+= '</tr>';
         tableHtml+= '</thead>';
@@ -199,6 +200,7 @@ function loadTabularData(){
 
         $.ajax({
             'url': "http://backend.tplmaps.com:8182/hc/locations",
+            // 'url': "http://localhost:8182/hc/locations",
             'method': "GET",
             'contentType': 'application/json'
         }).done( function(data) {
@@ -214,7 +216,9 @@ function loadTabularData(){
                     html +=     "<td>"+response[i]['report_number']+"</td>";
                     html +=     "<td>"+response[i]['treatment_place']+"</td>";
                     html +=     "<td>"+response[i]['contact']+"</td>";
-                    html +=     "<td>"+response[i]['cnic']+"</td>";;
+                    html +=     "<td>"+response[i]['cnic']+"</td>";
+                    var address = (response[i]['address']==undefined ||response[i]['address']==null )  ? '' : response[i]['address'];
+                    html +=     "<td>"+address+"</td>";
                     html +=     "<td>"+response[i]['creation_date']+"</td>";
                     // if (response[i]['updated_at'] == null)
                     //     html +=     "<td></td>";
@@ -408,6 +412,7 @@ window.onload = function ()
 
         $.ajax({
                 url: 'http://backend.tplmaps.com:8182/hc/location',
+                // url: 'http://localhost:8182/hc/location',
                 type: 'PUT',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
