@@ -1,14 +1,10 @@
 
 
-body {
+/*body {
     overflow-x: hidden;
     width: 100%;
-}
+}*/
 
-div#map {
-    z-index: 1;
-    position: absolute;
-}
 
 /*map-title{*/
         /* background-color: burlywood; */
@@ -22,15 +18,15 @@ div#map {
     /*width: auto;*/
     /*bottom: 17%;*/
 /*}*/
-.modal-header{
+/*.modal-header{
     background-color: #336d33 !important ;
 }
 
 .modal-footer{
     background-color: #ffffff !important ;
-}
+}*/
 
-#legend-btn{
+/*#legend-btn{
   z-index: 99999999999;
   position: absolute;
   bottom: 20%;
@@ -38,31 +34,21 @@ div#map {
   width: 51px;
   padding: 4px;
   background-color: #FFFF;
-  /* border-radius: 4px 0 0 4px; */
+   border-radius: 4px 0 0 4px; 
   padding: 3px;
   border-radius: 3px;
-}
-.map-title{
-  position: absolute;
-      z-index: 99999;
+}*/
 
-    /* left: 40%; */
-    /* padding: 10px; */
-    /* font-weight: bold; */
-    /* right: 25%; */
-    width: auto;
-    bottom: 2px;
-}
 
-.card {
+/*.card {
   left: 60px;
   display: flex;
   overflow: hidden;
-  /*max-width: 800px;*/
+  max-width: 800px;
   width: auto;
   border-radius: 4px;
   box-shadow: 0 30px 80px 10px rgba(0, 0, 0, 0.2);
-}
+}*/
 
 ._content {
   flex: 1;
@@ -240,23 +226,4 @@ textarea {
   overflow-y: auto;
 }
 
-/* .leaflet-touch .leaflet-bar button  {
-  width: 40px!important;
-  height: 37px!important;
-  line-height: 30px;
-  /* background-color: #5f8841!important; */
-  background-color: #7e84e4!important;
-} */
 
-.leaflet-touch .leaflet-bar button{
-  width: 40px!important;
-  height: 37px!important;
-  background-color: #126432 !important;
-  color: #ffffff !important;
-  }
-  
-  .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
-  border: 0px solid rgba(0,0,0,0.2) !important;
-  /* width: 40px!important;
-  height: 37px!important; */
-  }

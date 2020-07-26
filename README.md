@@ -1,2 +1,0 @@
-# heatmap-clustring-js-api
-

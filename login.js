@@ -1,7 +1,7 @@
 if (localStorage.hasOwnProperty('isLoggedin')) {
     if (localStorage.hasOwnProperty('isLoggedin') && localStorage.getItem('isLoggedin') == "true") {
         console.log('redirection will happen');
-        window.location.href = '/heatmap-clustring-js-api/?api_key=$2a$10$FIC4ZAY4wHH3a75k4QuukuPuoU8gYloZcHXeDxb0E3fCVAYD6fSfy'
+        window.location.href = '/pharmacy-portal/index.html'
     } else {
         // window.location.href = '/heatmap-clustring-js-api/login.html'
         console.log('no redirection');
@@ -35,13 +35,10 @@ $(document).ready(function() {
                 "email": $("#username").val(),
                 "password": $("#password").val()
             };
-            // let data = {
-            //     "email": "admin@tplmaps.com",
-            //     "password": "admin123"
-            // };
+
 
             $.ajax({
-                url: 'http://backend.tplmaps.com:8182/admin/user/login',
+                url: 'http://localhost:8182/admin/user/login',
                 type: 'GET',
                 data: data,
                 dataType: 'json',
@@ -58,7 +55,7 @@ $(document).ready(function() {
 
                     if (localStorage.hasOwnProperty('isLoggedin') && localStorage.getItem('isLoggedin') == "true") {
                         console.log('redirection will happen');
-                        window.location.href = '/heatmap-clustring-js-api/?api_key=$2a$10$FIC4ZAY4wHH3a75k4QuukuPuoU8gYloZcHXeDxb0E3fCVAYD6fSfy'
+                        window.location.href = '/pharmacy-portal/index.html'
                     } else {
                         // window.location.href = '/heatmap-clustring-js-api/login.html'
                         console.log('no redirection');
